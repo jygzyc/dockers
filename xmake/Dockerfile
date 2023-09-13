@@ -1,10 +1,15 @@
 
 FROM ubuntu:20.04
 
+# ndk env
+ENV ANDROID_NDK_HOME /opt/android-ndk
+ENV ANDROID_NDK_VERSION r25c
+ENV XMAKE_ROOT y
+
 # ------------------------------------------------------
 # --- Install required tools
 # Change apt sources list
-# COPY sources.list /etc/apt/sources.list
+COPY sources.list /etc/apt/sources.list
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -qq && apt-get clean
 RUN apt-get install -y \
@@ -12,18 +17,16 @@ RUN apt-get install -y \
     curl \
     git \
     make \
-    python-is-python3 \
-    python3-pip \
     unzip \
     wget \
-    xmake
+    software-properties-common
+
+RUN add-apt-repository ppa:xmake-io/xmake
+RUN apt-get update -qq && apt-get clean
+RUN apt-get install xmake
 
 # ------------------------------------------------------
 # --- Android NDK
-# ndk env
-ENV ANDROID_NDK_HOME /opt/android-ndk
-ENV ANDROID_NDK_VERSION r25c
-
 # download
 RUN mkdir /opt/android-ndk-tmp && \
     cd /opt/android-ndk-tmp && \
