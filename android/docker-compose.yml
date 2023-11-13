@@ -1,0 +1,12 @@
+version: "3"
+services:
+  android_builder:
+    image: android:v1
+    command: /bin/bash
+    tty: true
+    stdin_open: true
+    volumes:
+      - /home/${USER}/AndroidSourceCode/lineage/:/source # SourceCode Directory
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/group:/etc/group:ro
+      - /etc/shadow:/etc/shadow:ro

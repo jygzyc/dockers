@@ -1,7 +1,7 @@
 FROM ubuntu:20.04
 
-# Change apt sources list
-COPY sources.list /etc/apt/sources.list
+# Modify the sources.list for improving download speed 
+RUN sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.list
 
 # Create environment
 ENV DEBIAN_FRONTEND noninteractive
